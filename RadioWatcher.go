@@ -53,6 +53,7 @@ func main() {
 			stationcrawler.NewDasDing(),
 			stationcrawler.NewHr3(),
 			stationcrawler.NewYouFm(),
+			stationcrawler.NewFfn(),
 		})
 
 		watcher.StartCrawling()
