@@ -46,6 +46,7 @@ func main() {
 			stationcrawler.NewHr3(),
 			stationcrawler.NewYouFm(),
 			stationcrawler.NewFfn(),
+			stationcrawler.NewAntenne(),
 		})
 
 		watcher.StartCrawling()
