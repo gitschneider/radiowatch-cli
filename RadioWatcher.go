@@ -1,6 +1,5 @@
 package main
 
-import ()
 import (
 	"github.com/schnaidar/stationcrawler"
 	"github.com/schnaidar/radiowatch"
@@ -9,6 +8,7 @@ import (
 	"os"
 	"io/ioutil"
 	"encoding/json"
+	log "github.com/Sirupsen/logrus"
 )
 
 type config struct {
@@ -26,13 +26,19 @@ func main() {
 		var cfg config
 		file, err := ioutil.ReadFile("radiowatch.json")
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error when reading config file: %v", err.Error())
-			os.Exit(1)
+			log.WithField(
+			    "message",
+			    err.Error(),
+			).Fatal("Error when reading config")
 		}
 		err = json.Unmarshal(file, &cfg)
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err.Error())
 			os.Exit(2)
+			log.WithField(
+			    "message",
+			    err.Error(),
+			).Fatal("Error when Unmarshal config")
 		}
 		
 		writer := radiowatch.NewMysqlWriter(cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.Database)
