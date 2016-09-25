@@ -20,6 +20,7 @@ type config struct {
 }
 
 func main() {
+	log.SetFormatter(&log.TextFormatter{ForceColors:true})
 	app := cli.NewApp()
 
 	app.Action = func(c *cli.Context) {
@@ -53,6 +54,7 @@ func main() {
 			stationcrawler.NewYouFm(),
 			stationcrawler.NewFfn(),
 			stationcrawler.NewAntenne(),
+			stationcrawler.NewMdrJump(),
 		})
 
 		watcher.StartCrawling()
