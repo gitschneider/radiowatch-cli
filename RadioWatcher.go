@@ -8,8 +8,8 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/codegangsta/cli"
-	"github.com/schnaidar/radiowatch"
-	"github.com/schnaidar/stationcrawler"
+	"github.com/gitschneider/radiowatch"
+	"github.com/gitschneider/stationcrawler"
 )
 
 type config struct {
