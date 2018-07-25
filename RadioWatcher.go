@@ -1,14 +1,15 @@
 package main
 
 import (
-	"github.com/schnaidar/stationcrawler"
-	"github.com/schnaidar/radiowatch"
-	"github.com/codegangsta/cli"
-	"fmt"
-	"os"
-	"io/ioutil"
 	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
+
 	log "github.com/Sirupsen/logrus"
+	"github.com/codegangsta/cli"
+	"github.com/schnaidar/radiowatch"
+	"github.com/schnaidar/stationcrawler"
 )
 
 type config struct {
@@ -20,16 +21,27 @@ type config struct {
 }
 
 func main() {
-	log.SetFormatter(&log.TextFormatter{ForceColors:true})
+	log.SetFormatter(&log.TextFormatter{ForceColors: true})
+	log.SetLevel(log.ErrorLevel)
 	app := cli.NewApp()
 
+	app.Flags = []cli.Flag{
+		cli.BoolFlag{
+			Name:  "verbose",
+			Usage: "Outputs debug information",
+		},
+	}
+
 	app.Action = func(c *cli.Context) {
+		if c.Bool("verbose") {
+			log.SetLevel(log.DebugLevel)
+		}
 		var cfg config
 		file, err := ioutil.ReadFile("radiowatch.json")
 		if err != nil {
 			log.WithField(
-			    "message",
-			    err.Error(),
+				"message",
+				err.Error(),
 			).Fatal("Error when reading config")
 		}
 		err = json.Unmarshal(file, &cfg)
@@ -37,11 +49,11 @@ func main() {
 			fmt.Fprintln(os.Stderr, err.Error())
 			os.Exit(2)
 			log.WithField(
-			    "message",
-			    err.Error(),
+				"message",
+				err.Error(),
 			).Fatal("Error when Unmarshal config")
 		}
-		
+
 		writer := radiowatch.NewMysqlWriter(cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.Database)
 		watcher := radiowatch.NewWatcher(writer)
 		watcher.SetInterval("20s")
