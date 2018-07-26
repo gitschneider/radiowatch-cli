@@ -62,6 +62,7 @@ func main() {
 			stationcrawler.NewNjoy(),
 			stationcrawler.NewNdr2(),
 			stationcrawler.NewNdr1(),
+			stationcrawler.NewNdrKultur(),
 			stationcrawler.NewDasDing(),
 			stationcrawler.NewHr3(),
 			stationcrawler.NewYouFm(),
