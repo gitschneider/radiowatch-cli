@@ -68,6 +68,7 @@ func main() {
 			stationcrawler.NewYouFm(),
 			stationcrawler.NewFfn(),
 			stationcrawler.NewMdrJump(),
+			stationcrawler.NewIloveRadio(),
 		})
 
 		watcher.StartCrawling()
