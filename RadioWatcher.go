@@ -61,6 +61,7 @@ func main() {
 		watcher.AddCrawlers([]radiowatch.Crawler{
 			stationcrawler.NewNjoy(),
 			stationcrawler.NewNdr2(),
+			stationcrawler.NewNdr1(),
 			stationcrawler.NewDasDing(),
 			stationcrawler.NewHr3(),
 			stationcrawler.NewYouFm(),
